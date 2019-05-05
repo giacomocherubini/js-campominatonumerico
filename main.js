@@ -5,20 +5,43 @@
 // BONUS: all’inizio il software richiede anche una difficoltà all’utente che cambia il range di numeri casuali.
 // Con difficoltà 0=> da 1 a 100, con difficoltà 1 => da 1 a 80 con difficoltà 2=> da 1 a 50
 
-// creo un array di numeri vietati
-var mine = [];
-
-// creo un ciclo for che generi 16 numeri casuali inserendoli nell'array mine solo se sono diversi dagli altri
-for (var i = 0; i < 16; i++) {
-  var random_number = Math.floor(Math.random() * 100) +1;
-if (random_number != mine[i]) {
-  mine.push(random_number);
- }
+// ottengo numeri random con range
+function getRandomNumber(max){
+  return Math.floor(Math.random()* max) +1;
 }
 
-var number100 = [];
-Array.prototype.push.apply(number100, mine);
-console.log(number100);
-console.log(mine);
+// creo una lista di 16 numeri generati senza doppioni all'interno
+var lista = [];
+var numero;
+var i = 0;
+while(i < 16){
+  numero = getRandomNumber(100);
+  if(lista.includes(numero) == false){
+    lista.push(numero);
+    i++;
+  }
+}
 
-var   prova_numero = prompt("prova un numero");
+console.log(lista);
+
+// chiedo all'utente l'inserimento dei numeri
+// l'utente inserisce i numeri finche non inserisce un numero vietato per un max di 84 inserimenti
+
+var trovato = false;
+var j = 0;
+var num_utente;
+var punteggio = 0;
+while(j < 84 && trovato == false){
+  num_utente = parseInt(prompt('inserisci un numero da 1 a 100'));
+  if (lista.includes(num_utente)){
+    trovato = true;
+    alert('hai totalizzato ' + punteggio + ' punti');
+  }else {
+    punteggio += 1;
+    alert('ok vai avanti'  + punteggio);
+
+  }
+  j++;
+}
+console.log(trovato);
+alert('hai perso');
